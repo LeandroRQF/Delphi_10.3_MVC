@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018/12/27 13:34:25.000.738,=C:\Users\Leandro\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2018/12/27 13:36:33.000.988,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\View\uFrmPrincipal.pas=C:\Users\Leandro\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2018/12/27 13:36:33.000.988,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\View\uFrmPrincipal.dfm=C:\Users\Leandro\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2018/12/27 13:36:48.000.752,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\ProjetoMVC.dproj=C:\Users\Leandro\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2018/12/27 13:38:43.000.922,=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/27 13:38:55.000.035,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Dao\uConexao.pas=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 07:23:14.863,=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 07:23:27.446,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Controller\uSistemaController.pas=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 07:36:05.011,=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 07:36:25.390,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Model\uEmpresaModel.pas=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 08:12:51.071,=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 08:13:18.134,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Dao\uEmpresaDao.pas=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 15:14:57.407,=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 15:15:12.054,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Model\uEnumerable.pas=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 15:16:56.071,=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 15:17:06.484,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Model\uClienteModel.pas=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 15:33:11.400,=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 15:33:33.257,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\View\uFrmCliente.pas=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 15:33:33.257,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\View\uFrmCliente.dfm=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.dfm</Transaction>
+    <Transaction>2018/12/30 15:47:47.848,=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 15:47:58.113,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Dao\uClienteDao.pas=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 16:02:47.665,=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+    <Transaction>2018/12/30 16:02:59.215,D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Controller\uClienteController.pas=D:\PROJETOS_DELPHI_TOKYO\ProjetoMVC\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

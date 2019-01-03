@@ -1,0 +1,76 @@
+unit uConexao;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, Data.SqlExpr, Data.DBXInterBase,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
+  FireDAC.Phys, FireDAC.VCLUI.Wait, FireDAC.Comp.Client, FireDAC.Phys.FB,
+  FireDAC.Phys.FBDef, FireDAC.FMXUI.Wait, FireDAC.ConsoleUI.Wait,
+  FireDAC.Moni.Custom;
+
+type
+  TConexao = class
+
+  private
+    FConn: TFDConnection;
+
+    procedure ConfigurarConexao;
+
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    //Para não quebrar o encapsulamento da Orientação a Objetos
+    //criamos esse GetConn e não deixamos o FConn como GLOBAL
+    //dessa forma, buscamos o FConn através do GetConn
+    function GetConn: TFDConnection;
+    function CriarQuery: TFDQuery;
+
+  end;
+
+  const PATH_BANCO: string = 'D:\PROJETOS_DELPHI_TOKYO\Dados\BancoMVC.FDB';
+
+implementation
+
+{ TConexao }
+
+procedure TConexao.ConfigurarConexao;
+begin
+  FConn.Params.DriverID := 'FB';
+  FConn.Params.Database := PATH_BANCO;
+  FConn.Params.UserName := 'SYSDBA';
+  FConn.Params.Password := 'masterkey';
+  FConn.LoginPrompt     := False;
+end;
+
+constructor TConexao.Create;
+begin
+  FConn := TFDConnection.Create(nil);
+
+  Self.ConfigurarConexao();
+end;
+
+function TConexao.CriarQuery: TFDQuery;
+var vQuery: TFDQuery;
+begin
+  vQuery := TFDQuery.Create(nil);
+  vQuery.Connection := FConn;
+
+  Result := vQuery;
+end;
+
+destructor TConexao.Destroy;
+begin
+  FreeAndNil(FConn);
+
+  inherited;
+end;
+
+function TConexao.GetConn: TFDConnection;
+begin
+  Result := FConn;
+end;
+
+end.

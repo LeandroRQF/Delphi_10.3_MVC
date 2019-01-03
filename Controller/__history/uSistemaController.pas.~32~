@@ -1,0 +1,63 @@
+unit uSistemaController;
+
+interface
+
+uses uConexao, System.SysUtils, uEmpresaModel,
+     FireDAC.DApt.Intf, FireDAC.DApt;
+
+type
+  TSistemaController = class
+
+  private
+    FConexao: TConexao;
+    FEmpresa: TEmpresaModel;
+
+    class var FInstancia: TSistemaController;
+
+  public
+    Constructor Create;
+    Destructor Destroy; Override;
+
+    class function GetInstancia: TSistemaController;
+
+    procedure CarregarEmpresa(ACodigoEmpresa: Integer);
+
+    property Conexao: TConexao read FConexao write FConexao;
+    property Empresa: TEmpresaModel read FEmpresa write FEmpresa;
+
+  end;
+
+implementation
+
+{ TSistemaController }
+
+procedure TSistemaController.CarregarEmpresa(ACodigoEmpresa: Integer);
+begin
+  FEmpresa.Carregar(ACodigoEmpresa);
+end;
+
+constructor TSistemaController.Create;
+begin
+  FConexao := TConexao.Create;
+  FEmpresa := TEmpresaModel.Create();
+end;
+
+destructor TSistemaController.Destroy;
+begin
+  FreeAndNil(FEmpresa);
+  FreeAndNil(FConexao);
+  inherited;
+end;
+
+class function TSistemaController.GetInstancia: TSistemaController;
+begin
+  if not Assigned(Self.FInstancia) then
+  begin
+    Self.FInstancia := TSistemaController.Create();
+  end;
+
+  Result := Self.FInstancia;
+
+end;
+
+end.

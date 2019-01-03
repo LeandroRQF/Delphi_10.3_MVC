@@ -1,0 +1,112 @@
+unit uClienteDao;
+
+interface
+
+uses FireDAC.Comp.Client, uConexao, uClienteModel, System.SysUtils;
+
+type
+  TClienteDao = class
+
+  private
+    FConexao: TConexao;
+
+  public
+    constructor Create;
+
+    function Incluir(AClienteModel: TClienteModel): Boolean;
+    function Alterar(AClienteModel: TClienteModel): Boolean;
+    function Excluir(AClienteModel: TClienteModel): Boolean;
+    function GetId(AAutoIncrement: Integer): Integer;
+    function Get: TFDQuery;
+
+  end;
+
+implementation
+
+{ TClienteDao }
+
+uses uSistemaController;
+
+function TClienteDao.Alterar(AClienteModel: TClienteModel): Boolean;
+var vQuery: TFDQuery;
+begin
+  vQuery := FConexao.CriarQuery;
+
+  try
+    vQuery.ExecSQL('UPDATE CLIENTE SET CLIENTE.NOME = :NOME WHERE (CLIENTE.CODIGO = :CODIGO)', [AClienteModel.Nome, AClienteModel.Codigo]);
+
+    Result := True;
+  finally
+    vQuery.Close;
+  end;
+end;
+
+constructor TClienteDao.Create;
+begin
+  FConexao := TSistemaController.GetInstancia().Conexao;
+end;
+
+function TClienteDao.Excluir(AClienteModel: TClienteModel): Boolean;
+var vQuery: TFDQuery;
+begin
+  vQuery := FConexao.CriarQuery;
+
+  try
+    vQuery.ExecSQL('DELETE FROM CLIENTE WHERE CLIENTE.CODIGO = :CODIGO', [AClienteModel.Codigo]);
+
+    Result := True;
+  finally
+    vQuery.Close;
+  end;
+end;
+
+function TClienteDao.Get: TFDQuery;
+var vQuery: TFDQuery;
+begin
+  vQuery := FConexao.CriarQuery();
+
+  vQuery.Open('SELECT CLIENTE.CODIGO, CLIENTE.NOME FROM CLIENTE');
+
+  try
+    Result := vQuery;
+
+  finally
+    //vQuery.Close;
+  end;
+end;
+
+function TClienteDao.GetId(AAutoIncrement: Integer): Integer;
+var vQuery: TFDQuery;
+begin
+  vQuery := TFDQuery.Create();
+
+  try
+    vQuery.Open('SELECT GEN_ID(GEN_CLIENTE_ID, ' + IntToStr(AAutoIncrement) + ') FROM RDB$DATABASE ');
+
+    try
+      Result := vQuery.Fields[0].AsInteger;
+
+    finally
+      vQuery.Close;
+    end;
+  finally
+    FreeAndNil(vQuery);
+  end;
+
+end;
+
+function TClienteDao.Incluir(AClienteModel: TClienteModel): Boolean;
+var vQuery: TFDQuery;
+begin
+  vQuery := FConexao.CriarQuery();
+
+  vQuery.ExecSQL('INSERT INTO CLIENTE (CLIENTE.NOME) VALUES (:NOME)', [AClienteModel.Nome]);
+
+  try
+    Result := True;
+  finally
+    vQuery.Close;
+  end;
+end;
+
+end.

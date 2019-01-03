@@ -1,0 +1,43 @@
+unit uEmpresaModel;
+
+interface
+
+type
+  TEmpresaModel = class
+
+    private
+    FDescricao: string;
+    FCodigo: Integer;
+
+    procedure SetCodigo(const Value: Integer);
+    procedure SetDescricao(const Value: string);
+    procedure Carregar;
+
+    public
+      constructor Create(ACodigo: Integer);
+
+      property Codigo: Integer read FCodigo write SetCodigo;
+      property Descricao: string read FDescricao write SetDescricao;
+
+  end;
+
+implementation
+
+{ TEmpresa }
+
+constructor TEmpresaModel.Create(ACodigo: Integer);
+begin
+  FCodigo := ACodigo;
+end;
+
+procedure TEmpresaModel.SetCodigo(const Value: Integer);
+begin
+  FCodigo := Value;
+end;
+
+procedure TEmpresaModel.SetDescricao(const Value: string);
+begin
+  FDescricao := Value;
+end;
+
+end.

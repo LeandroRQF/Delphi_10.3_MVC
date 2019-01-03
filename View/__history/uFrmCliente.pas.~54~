@@ -1,0 +1,188 @@
+unit uFrmCliente;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uClienteController, uEnumerable;
+
+type
+  TFrmCliente = class(TForm)
+    edtCodigo: TEdit;
+    edtNome: TEdit;
+    lblCodigo: TLabel;
+    lblNome: TLabel;
+    fdmTableCliente: TFDMemTable;
+    grdCliente: TDBGrid;
+    dsCliente: TDataSource;
+    fdmTableClienteCODIGO: TIntegerField;
+    fdmTableClienteNOME: TStringField;
+    btnIncluir: TButton;
+    btnAlterar: TButton;
+    btnExcluir: TButton;
+    btnNovo: TButton;
+    procedure FormShow(Sender: TObject);
+    procedure btnIncluirClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
+    procedure grdClienteKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure grdClienteMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+  private
+    { Private declarations }
+    FClienteController: TClienteController;
+
+    procedure CarregarEdits;
+
+    procedure CarregarCliente;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCliente: TFrmCliente;
+
+implementation
+
+{$R *.dfm}
+
+{ TFrmCliente }
+
+procedure TFrmCliente.btnAlterarClick(Sender: TObject);
+begin
+  try
+    //FClienteController foi criado no create do formulário
+    //Pode ser usado assim, ou cliado conforme no botão incluir
+    FClienteController.ClienteModel.Acao   := uEnumerable.tipoacaoAlterar;
+    FClienteController.ClienteModel.Codigo := StrToInt(edtCodigo.Text);
+    FClienteController.ClienteModel.Nome   := edtNome.Text;
+
+    if FClienteController.Salvar then
+      ShowMessage('Alterado com sucesso!');
+
+    Self.CarregarCliente();
+
+  finally
+
+  end;
+
+end;
+
+procedure TFrmCliente.btnExcluirClick(Sender: TObject);
+var vCodigo: string;
+begin
+  vCodigo := InputBox('Excluir', 'Digite o código do cliente', EmptyStr);
+
+  try
+    if vCodigo.Trim <> EmptyStr then
+    begin
+      if (Application.MessageBox(PChar('Deseja excluir o registro?'), 'Confirmação', MB_YESNO + MB_DEFBUTTON2 + MB_ICONQUESTION) = mrYes) then
+      begin
+        FClienteController.ClienteModel.Acao   := uEnumerable.tipoacaoExcluir;
+        FClienteController.ClienteModel.Codigo := StrToInt(vCodigo.Trim);
+
+        if FClienteController.Salvar() then
+          ShowMessage('Excluído com sucesso!');
+
+        Self.CarregarCliente();
+      end;
+    end;
+
+  finally
+
+  end;
+
+end;
+
+procedure TFrmCliente.btnIncluirClick(Sender: TObject);
+begin
+  try
+    FClienteController.ClienteModel.Acao := uEnumerable.tipoacaoIncluir;
+    FClienteController.ClienteModel.Nome := edtNome.Text;
+
+    if FClienteController.Salvar then
+      ShowMessage('Incluído com sucesso!');
+
+    Self.CarregarCliente();
+  finally
+
+  end;
+
+end;
+
+procedure TFrmCliente.btnNovoClick(Sender: TObject);
+begin
+  FClienteController.ClienteModel.Codigo := FClienteController.ClienteModel.GetId(1);
+
+  edtCodigo.Text := FClienteController.ClienteModel.Codigo.ToString();
+  edtNome.Clear;
+  edtNome.SetFocus();
+end;
+
+procedure TFrmCliente.CarregarCliente;
+var vQuery: TFDQuery;
+begin
+  try
+    fdmTableCliente.Close;
+    vQuery := FClienteController.Get;
+
+    try
+      vQuery.FetchAll;
+      fdmTableCliente.Data := vQuery.Data;
+      
+    finally
+      vQuery.Close;
+      FreeAndNil(vQuery);
+    end;
+
+  finally
+
+  end;
+end;
+
+procedure TFrmCliente.CarregarEdits;
+begin
+  edtCodigo.Text := fdmTableCliente.Fields[0].AsString;
+  edtNome.Text   := fdmTableCliente.Fields[1].AsString;
+end;
+
+procedure TFrmCliente.FormCreate(Sender: TObject);
+begin
+  FClienteController := TClienteController.Create;
+end;
+
+procedure TFrmCliente.FormDestroy(Sender: TObject);
+begin
+  FCLienteController.Free;
+end;
+
+procedure TFrmCliente.FormShow(Sender: TObject);
+begin
+  Self.CarregarCliente();
+
+  if (fdmTableCliente.RecordCount > 0) then
+  begin
+    Self.CarregarEdits();
+  end;
+end;
+
+procedure TFrmCliente.grdClienteKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  Self.CarregarEdits();
+end;
+
+procedure TFrmCliente.grdClienteMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Self.CarregarEdits();
+end;
+
+end.

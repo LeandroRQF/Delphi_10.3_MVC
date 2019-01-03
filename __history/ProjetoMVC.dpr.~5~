@@ -1,0 +1,18 @@
+program ProjetoMVC;
+
+uses
+  Vcl.Forms,
+  uFrmPrincipal in 'View\uFrmPrincipal.pas' {FrmPrincipal},
+  uConexao in 'Dao\uConexao.pas',
+  uSistemaController in 'Controller\uSistemaController.pas',
+  uEmpresaModel in 'Model\uEmpresaModel.pas',
+  uEmpresaDao in 'Dao\uEmpresaDao.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
+  Application.Run;
+end.

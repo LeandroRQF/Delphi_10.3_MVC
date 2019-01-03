@@ -1,0 +1,41 @@
+unit uClienteController;
+
+interface
+
+uses uClienteModel, System.SysUtils, FireDAC.Comp.Client;
+
+type
+  TClienteController = class
+
+  private
+    FClienteModel: TClienteModel;
+
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    function Get: TFDQuery;
+
+  end;
+
+implementation
+
+{ TClienteController }
+
+constructor TClienteController.Create;
+begin
+  FClienteModel := TClienteModel.Create;
+end;
+
+destructor TClienteController.Destroy;
+begin
+  FreeAndNil(FClienteModel);
+  inherited;
+end;
+
+function TClienteController.Get: TFDQuery;
+begin
+  Result := FClienteModel.Get;
+end;
+
+end.

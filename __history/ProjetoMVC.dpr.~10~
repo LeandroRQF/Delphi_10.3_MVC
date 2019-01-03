@@ -1,0 +1,22 @@
+program ProjetoMVC;
+
+uses
+  Vcl.Forms,
+  uFrmPrincipal in 'View\uFrmPrincipal.pas' {FrmPrincipal},
+  uConexao in 'Dao\uConexao.pas',
+  uSistemaController in 'Controller\uSistemaController.pas',
+  uEmpresaModel in 'Model\uEmpresaModel.pas',
+  uEmpresaDao in 'Dao\uEmpresaDao.pas',
+  uEnumerable in 'Model\uEnumerable.pas',
+  uClienteModel in 'Model\uClienteModel.pas',
+  uFrmCliente in 'View\uFrmCliente.pas' {FrmCliente},
+  uClienteDao in 'Dao\uClienteDao.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
+  Application.Run;
+end.

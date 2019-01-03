@@ -1,0 +1,85 @@
+unit uClienteModel;
+
+interface
+
+uses uEnumerable, FireDAC.Comp.Client, System.SysUtils;
+
+type
+  TClienteModel = class
+  private
+    FAcao: TAcao;
+    FCodigo: Integer;
+    FNome: string;
+
+    procedure SetAcao(const Value: TAcao);
+    procedure SetCodigo(const Value: Integer);
+    procedure SetNome(const Value: string);
+
+  public
+    function Get: TFDQuery;
+    function Salvar: Boolean;
+
+    property Codigo: Integer read FCodigo write SetCodigo;
+    property Nome: string read FNome write SetNome;
+    property Acao: TAcao read FAcao write SetAcao;
+  end;
+
+implementation
+
+{ TCliente }
+
+uses uClienteDao;
+
+function TClienteModel.Get: TFDQuery;
+var vClienteDao : TClienteDao;
+begin
+  vClienteDao := TClienteDao.Create;
+
+  try
+    Result := vClienteDao.Get;
+  finally
+    FreeAndNil(vClienteDao);
+  end;
+end;
+
+function TClienteModel.Salvar: Boolean;
+var vClienteDao: TClienteDao;
+begin
+  Result := False;
+
+  vClienteDao := TClienteDao.Create;
+
+  try
+    case FAcao of
+      uEnumerable.tipoacaoIncluir:
+        Result := vClienteDao.Incluir(Self);
+
+      uEnumerable.tipoacaoAlterar:
+        Result := vClienteDao.Alterar(Self);
+
+      uEnumerable.tipoacaoExcluir:
+        Result := vClienteDao.Excluir(Self);
+
+    end;
+  finally
+    FreeAndNil(vClienteDao);
+  end;
+
+end;
+
+procedure TClienteModel.SetAcao(const Value: TAcao);
+begin
+  FAcao := Value;
+end;
+
+procedure TClienteModel.SetCodigo(const Value: Integer);
+begin
+  FCodigo := Value;
+end;
+
+procedure TClienteModel.SetNome(const Value: string);
+begin
+  FNome := Value;
+end;
+
+end.

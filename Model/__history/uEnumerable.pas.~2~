@@ -1,0 +1,10 @@
+unit uEnumerable;
+
+interface
+
+type
+  TEnumerable = (tpIndefinido, tpIncluir, tpAlterar, tpExcluir)/
+
+implementation
+
+end.

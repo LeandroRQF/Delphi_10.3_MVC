@@ -1,0 +1,66 @@
+unit uFrmPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uSistemaController,
+  Vcl.ComCtrls;
+type
+  TFrmPrincipal = class(TForm)
+    Button1: TButton;
+    stbPrincipal: TStatusBar;
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmPrincipal: TFrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+uses uConexao;
+
+procedure TFrmPrincipal.Button1Click(Sender: TObject);
+var vConexao: TConexao;
+begin
+  vConexao := TConexao.Create;
+  vConexao.GetConn.Connected := True;
+
+  try
+    if vConexao.GetConn.Connected then
+      ShowMessage('Conectado');
+  finally
+    FreeAndNil(vConexao);
+  end;
+
+end;
+
+procedure TFrmPrincipal.FormCreate(Sender: TObject);
+begin
+  TSistemaController.GetInstancia();
+  TSistemaController.GetInstancia().CarregarEmpresa(1);
+
+  stbPrincipal.Panels[0].Text := 'Versão: 1.0';
+
+  stbPrincipal.Panels[1].Text := 'Empresa: ' + FormatFloat('0000', TSistemaController.GetInstancia().EmpresaModel.Codigo) + ' - ' +
+                                             + TSistemaController.GetInstancia().EmpresaModel.Descricao;
+end;
+
+procedure TFrmPrincipal.FormDestroy(Sender: TObject);
+begin
+  TSistemaController.GetInstancia().Destroy();
+end;
+
+//Exibe instâncias no projeto que não foram encerradas
+initialization
+  ReportMemoryLeaksOnShutdown := True;
+
+end.
